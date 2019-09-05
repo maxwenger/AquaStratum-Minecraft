@@ -1,0 +1,16 @@
+[
+{
+  "modid": "aquastratum",
+  "name": "AquaStratum",
+  "description": "Real scuba physics!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Stratum0"],
+  "credits": "Meeeeee",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

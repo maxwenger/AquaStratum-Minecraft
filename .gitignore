@@ -1,0 +1,60 @@
+# IntelliJ
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/contentModel.xml
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.iml
+*.ipr
+cmake-build-*/
+.idea/**/mongoSettings.xml
+*.iws
+/out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+/build/
+.gradle
+gradle-app.settings
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# java
+.class
+.log
+.jar
+.war
+.nar
+.ear
+.zip
+.tar.gz
+.rar
+hs_err_pid*
+
+# other
+run
