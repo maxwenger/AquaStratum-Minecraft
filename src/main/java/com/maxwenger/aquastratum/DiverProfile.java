@@ -48,7 +48,7 @@ public class DiverProfile {
         int depth = getDepth();
         double ppog = fog;
 
-        if (depth != 0) {
+        if (depth >= 0) {
             ppog *= 1 + (depth/10);
         }
 
