@@ -23,9 +23,7 @@ public class ZHL16A {
     }
 
     public double getCeling() {
-        double maxPPo2 = getControllingCompartment().GetCurrentPPOG();
-
-
+        double maxPPoG = getControllingCompartment().GetCurrentPPOG();
 
         return 0.0;
     }
