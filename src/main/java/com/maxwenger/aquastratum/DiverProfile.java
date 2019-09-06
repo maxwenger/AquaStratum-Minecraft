@@ -10,9 +10,12 @@ public class DiverProfile {
     private double selectedGasFO2 = 0.21;
     private double selectedGasFN2 = 1 - selectedGasFO2;
 
+    private double gfLow = 0.2;
+    private double gfHigh = 0.85;
+
     public DiverProfile(Minecraft mc) {
         this.mc = mc;
-        //computer = new ZHL16A(selectedGasFO2);
+        computer = new ZHL16A(selectedGasFO2, gfLow, gfHigh);
     }
 
     public boolean isDiving(){
