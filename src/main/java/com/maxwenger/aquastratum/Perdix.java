@@ -11,7 +11,7 @@ public class Perdix extends GuiScreen {
     int guiHeight = 214;
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks){
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
         drawTexturedModalRect(0, 0, 0, 0, guiWidth, guiHeight);
         super.drawScreen(mouseX, mouseY, partialTicks);

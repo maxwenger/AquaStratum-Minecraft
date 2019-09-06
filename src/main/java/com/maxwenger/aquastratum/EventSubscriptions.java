@@ -31,7 +31,7 @@ public class EventSubscriptions {
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent e) {
         int epochsPerSecond = 2;
-        if(tickCounter >= 20/epochsPerSecond) {
+        if (tickCounter >= 20 / epochsPerSecond) {
             double secondsPerEpoch = 1 / epochsPerSecond;
 
             if (diverProfile != null) {
@@ -45,8 +45,8 @@ public class EventSubscriptions {
     }
 
     @SubscribeEvent
-    public void onDebugOverlay(RenderGameOverlayEvent.Text event){
-        if (mc != null && diverProfile != null){
+    public void onDebugOverlay(RenderGameOverlayEvent.Text event) {
+        if (mc != null && diverProfile != null) {
             if (mc.gameSettings.showDebugInfo && diverProfile.isDiving()) {
                 int depth = diverProfile.getDepth();
                 double Pa = 1 + (depth / 10.0);
@@ -57,7 +57,7 @@ public class EventSubscriptions {
 
     @SubscribeEvent
     public void onKeyPress(InputEvent.KeyInputEvent event) {
-        if(Keyboard.isKeyDown(Keyboard.KEY_C)){
+        if (Keyboard.isKeyDown(Keyboard.KEY_C)) {
             mc.displayGuiScreen(perdix);
         }
     }

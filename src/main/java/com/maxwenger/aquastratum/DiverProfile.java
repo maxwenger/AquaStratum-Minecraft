@@ -18,7 +18,7 @@ public class DiverProfile {
         computer = new ZHL16A(selectedGasFO2, gfLow, gfHigh);
     }
 
-    public boolean isDiving(){
+    public boolean isDiving() {
         return getPlayer().isInWater() && getDepth() > 0;
     }
 
@@ -26,16 +26,17 @@ public class DiverProfile {
         computer.RecomputeN2Compartments(selectedGasFN2, deltaTime);
     }
 
-    public double getPPO2(){
+    public double getPPO2() {
         return getPPOG(selectedGasFO2);
     }
 
-    public int getAltitude(){
+    public int getAltitude() {
         int seaLevel = 63;
         int yCord = getPlayer().getPosition().getY();
         return yCord - seaLevel;
     }
-    public int getDepth(){
+
+    public int getDepth() {
 
         int alt = getAltitude();
         if (alt < 0 && getPlayer().isInWater()) {
@@ -50,7 +51,7 @@ public class DiverProfile {
         double ppog = fog;
 
         if (depth != 0) {
-            ppog *= 1 + (depth/10);
+            ppog *= 1 + (depth / 10);
         }
 
         return ppog;

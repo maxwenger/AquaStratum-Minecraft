@@ -20,8 +20,7 @@ import org.lwjgl.input.Keyboard;
 import java.text.DecimalFormat;
 
 @Mod(modid = AquaStratum.MODID, name = AquaStratum.NAME, version = AquaStratum.VERSION)
-public class AquaStratum
-{
+public class AquaStratum {
     public static final String MODID = "aquastratum";
     public static final String NAME = "AquaStratum";
     public static final String VERSION = "1.0";
@@ -33,16 +32,14 @@ public class AquaStratum
     private static Logger logger;
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         eventSubscriptions = new EventSubscriptions();
         logger.info("Completed pre-init.");
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         mc = Minecraft.getMinecraft();
         diverProfile = new DiverProfile(mc);
         InitEventSubscriptions();

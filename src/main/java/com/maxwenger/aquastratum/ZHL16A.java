@@ -26,14 +26,13 @@ public class ZHL16A {
         double maxPPo2 = getControllingCompartment().GetCurrentPPOG();
 
 
-
         return 0.0;
     }
 
     public ZHLTissueCompartment getControllingCompartment() {
         int controllingCompartment = 0;
-        for (int i = 0; i < n2Compartments.length; i++){
-            if (n2Compartments[i].GetCurrentPPOG() > n2Compartments[controllingCompartment].GetCurrentPPOG()){
+        for (int i = 0; i < n2Compartments.length; i++) {
+            if (n2Compartments[i].GetCurrentPPOG() > n2Compartments[controllingCompartment].GetCurrentPPOG()) {
                 controllingCompartment = i;
             }
         }
@@ -42,7 +41,7 @@ public class ZHL16A {
 
     // ppn2: partial pressure of nitrogen measured in bar
     // deltaTime: time sense last computation, measured in seconds.
-    public void RecomputeN2Compartments(double ppn2, double deltaTime){
+    public void RecomputeN2Compartments(double ppn2, double deltaTime) {
 
         for (int i = 0; i < n2Compartments.length; i++) {
             n2Compartments[i].ComputePPOG(ppn2, deltaTime);
@@ -50,7 +49,7 @@ public class ZHL16A {
     }
 
     private void InitTissueCompartments() {
-        for (int i = 0; i < n2Compartments.length; i++){
+        for (int i = 0; i < n2Compartments.length; i++) {
             n2Compartments[i] = new ZHLTissueCompartment(n2HalfTimes[i], fn2);
         }
     }
