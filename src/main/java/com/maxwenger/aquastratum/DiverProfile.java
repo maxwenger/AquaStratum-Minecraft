@@ -1,20 +1,18 @@
 package com.maxwenger.aquastratum;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
 
 public class DiverProfile {
 
     private Minecraft mc;
-    private Zhl computer;
+    private ZHL16A computer;
     private double selectedGasFO2 = 0.21;
     private double selectedGasFN2 = 1 - selectedGasFO2;
 
     public DiverProfile(Minecraft mc) {
         this.mc = mc;
-        computer = new Zhl(selectedGasFO2);
+        computer = new ZHL16A(selectedGasFO2);
     }
 
     public boolean isDiving(){
@@ -48,7 +46,7 @@ public class DiverProfile {
         int depth = getDepth();
         double ppog = fog;
 
-        if (depth >= 0) {
+        if (depth != 0) {
             ppog *= 1 + (depth/10);
         }
 
