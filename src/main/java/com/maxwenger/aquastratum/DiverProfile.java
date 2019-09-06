@@ -12,7 +12,7 @@ public class DiverProfile {
 
     public DiverProfile(Minecraft mc) {
         this.mc = mc;
-        computer = new ZHL16A(selectedGasFO2);
+        //computer = new ZHL16A(selectedGasFO2);
     }
 
     public boolean isDiving(){

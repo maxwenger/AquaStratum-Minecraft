@@ -24,7 +24,7 @@ public class AquaStratum
 {
     public static final String MODID = "aquastratum";
     public static final String NAME = "AquaStratum";
-    public static final String VERSION = "@VERSION@";
+    public static final String VERSION = @VERSION@;
 
     private Minecraft mc;
     private EventSubscriptions eventSubscriptions;
