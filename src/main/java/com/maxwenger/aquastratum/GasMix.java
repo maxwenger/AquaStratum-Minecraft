@@ -18,8 +18,8 @@ public class GasMix {
         if (percentages.length != 2) {
             throw new IllegalArgumentException("Invalid mixture");
         }
-        double oxygenPercentage = Double.parseDouble(percentages[0]);
-        double heliumPercentage = Double.parseDouble(percentages[1]);
+        double oxygenPercentage = Double.parseDouble(percentages[0])/100;
+        double heliumPercentage = Double.parseDouble(percentages[1])/100;
 
         setMix(oxygenPercentage, heliumPercentage);
     }

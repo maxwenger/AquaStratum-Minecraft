@@ -4,27 +4,27 @@ public class ProfileElement {
     private double ambientPressure; //replaces depth
     private double descentRate;
     private double time;
+    private GasMix gasMix;
     private double PN2;
     private double PHe;
 
     public ProfileElement(double depth, double time, GasMix mix){
         setDepth(depth);
         setTime(time);
+        gasMix = mix;
         setPartialPressures(mix);
         setDescentRate(0);
     }
 
     public ProfileElement(double depth, double time, GasMix mix, ProfileElement priorElement){
-        setDepth(depth);
-        setTime(time);
-        setPartialPressures(mix);
+        this(depth, time, mix);
         setDescentRate((ambientPressure-priorElement.getAmbientPressure())/time);
     }
 
     public void setDepth(double depth) {
         double ambientPressure = depthToBar(depth);
-        if(ambientPressure > 1){
-            throw new IllegalArgumentException("Depth cannot be positive");
+        if(ambientPressure < 1){
+            throw new IllegalArgumentException("Depth cannot be negative");
         }
         this.ambientPressure = ambientPressure;
     }
@@ -34,6 +34,10 @@ public class ProfileElement {
             throw new IllegalArgumentException("Time cannot be negative");
         }
         this.time = time;
+    }
+
+    public GasMix getGasMix(){
+        return gasMix;
     }
 
     public void setDescentRate(double descentRate){
@@ -46,11 +50,11 @@ public class ProfileElement {
     }
 
     private double depthToBar(double depth){
-        return -depth/10 + 1;
+        return depth/10 + 1;
     }
 
     private double barToDepth(double ambientPressure){
-        return -(ambientPressure-1)*10;
+        return (ambientPressure-1)*10;
     }
 
     public double getDepth(){

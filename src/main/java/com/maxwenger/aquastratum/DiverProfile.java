@@ -6,16 +6,18 @@ import net.minecraft.client.entity.EntityPlayerSP;
 public class DiverProfile {
 
     private Minecraft mc;
-    private ZHL16A computer;
-    private double selectedGasFO2 = 0.21;
-    private double selectedGasFN2 = 1 - selectedGasFO2;
+    private ZHL16A zhl16A;
+    private ContinuousCurve continuousCurve;
+    private GasMix gasMix;
 
     private double gfLow = 0.2;
     private double gfHigh = 0.85;
 
     public DiverProfile(Minecraft mc) {
         this.mc = mc;
-        computer = new ZHL16A(selectedGasFO2, gfLow, gfHigh);
+        gasMix = new GasMix("20/00");
+        continuousCurve = new ContinuousCurve();
+        zhl16A = new ZHL16A(gasMix.getO2Percent(), gfLow, gfHigh);
     }
 
     public boolean isDiving() {
@@ -23,11 +25,12 @@ public class DiverProfile {
     }
 
     public void RecomputeTissues(double deltaTime) {
-        computer.RecomputeN2Compartments(selectedGasFN2, deltaTime);
+        zhl16A.RecomputeN2Compartments(getPPOG(gasMix.getN2Percent()), deltaTime);
+        continuousCurve.addElement(getDepth(), deltaTime, gasMix);
     }
 
     public double getPPO2() {
-        return getPPOG(selectedGasFO2);
+        return getPPOG(gasMix.getO2Percent());
     }
 
     public int getAltitude() {
@@ -55,6 +58,14 @@ public class DiverProfile {
         }
 
         return ppog;
+    }
+
+    public double getZHLTP(int tissueIndex){
+        return zhl16A.GetCompartments()[tissueIndex].GetCurrentPPOG();
+    }
+
+    public double getCurveTP(double tissueIndex){
+        return continuousCurve.getCurve(tissueIndex);
     }
 
     private EntityPlayerSP getPlayer() {

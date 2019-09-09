@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 
+import java.text.DecimalFormat;
+
 public class EventSubscriptions {
 
     private DiverProfile diverProfile;
@@ -30,11 +32,11 @@ public class EventSubscriptions {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent e) {
-        int epochsPerSecond = 2;
-        if (tickCounter >= 20 / epochsPerSecond) {
-            double secondsPerEpoch = 1 / epochsPerSecond;
+        double epochsPerSecond = 2.0;
+        if (tickCounter >= 20.0 / epochsPerSecond) {
+            double secondsPerEpoch = 1.0 / epochsPerSecond;
 
-            if (diverProfile != null) {
+            if (diverProfile != null && mc.player != null) {
                 diverProfile.RecomputeTissues(secondsPerEpoch);
             }
 
@@ -50,7 +52,15 @@ public class EventSubscriptions {
             if (mc.gameSettings.showDebugInfo && diverProfile.isDiving()) {
                 int depth = diverProfile.getDepth();
                 double Pa = 1 + (depth / 10.0);
+                DecimalFormat floatF = new DecimalFormat("0.000");
+                DecimalFormat intF = new DecimalFormat("00");
                 event.getLeft().add("Pa: " + Pa + " bar; " + "Depth: " + depth + "m");
+                for(int i=1; i <= 8; i++){
+                    int j = i-1;
+                    int k = 2*i-1;
+                    event.getLeft().add("Tissue " + intF.format(j) + ": [ZHL: " + floatF.format(diverProfile.getZHLTP(j)) + " Curve: " + floatF.format(diverProfile.getCurveTP(j))+"]"
+                            + " | Tissue " + intF.format(k) + ": [ZHL: " + floatF.format(diverProfile.getZHLTP(k)) + " Curve: " + floatF.format(diverProfile.getCurveTP(k))+"]");
+                }
             }
         }
     }
