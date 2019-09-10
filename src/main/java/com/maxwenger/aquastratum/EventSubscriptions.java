@@ -54,10 +54,11 @@ public class EventSubscriptions {
                 double Pa = 1 + (depth / 10.0);
                 DecimalFormat floatF = new DecimalFormat("0.000");
                 DecimalFormat intF = new DecimalFormat("00");
-                event.getLeft().add("Pa: " + Pa + " bar; " + "Depth: " + depth + "m");
-                for(int i=1; i <= 8; i++){
+                event.getRight().add("Pa: " + Pa + " bar; " + "Depth: " + depth + "m");
+                event.getRight().add("Curve Deco Stress: " + floatF.format(diverProfile.getCurveStress()));
+                for(int i=1; i < 16; i += 2){
                     int j = i-1;
-                    int k = 2*i-1;
+                    int k = i;
                     event.getLeft().add("Tissue " + intF.format(j) + ": [ZHL: " + floatF.format(diverProfile.getZHLTP(j)) + " Curve: " + floatF.format(diverProfile.getCurveTP(j))+"]"
                             + " | Tissue " + intF.format(k) + ": [ZHL: " + floatF.format(diverProfile.getZHLTP(k)) + " Curve: " + floatF.format(diverProfile.getCurveTP(k))+"]");
                 }

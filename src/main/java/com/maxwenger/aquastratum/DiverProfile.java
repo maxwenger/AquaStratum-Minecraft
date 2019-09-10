@@ -68,6 +68,10 @@ public class DiverProfile {
         return continuousCurve.getCurve(tissueIndex);
     }
 
+    public double getCurveStress(){
+        return continuousCurve.decoStress();
+    }
+
     private EntityPlayerSP getPlayer() {
         return mc.player;
     }

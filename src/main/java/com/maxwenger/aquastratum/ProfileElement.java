@@ -33,7 +33,7 @@ public class ProfileElement {
         if(time < 0){
             throw new IllegalArgumentException("Time cannot be negative");
         }
-        this.time = time;
+        this.time = time/60; //Save as minutes
     }
 
     public GasMix getGasMix(){
