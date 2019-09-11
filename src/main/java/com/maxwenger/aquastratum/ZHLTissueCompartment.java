@@ -26,7 +26,7 @@ public class ZHLTissueCompartment {
         return CurrentPPOG;
     }
 
-    private double getToleratedAmbientPressure() {
+    public double getMaxToleratedPressure() {
         return (CurrentPPOG - a) * b;
     }
 

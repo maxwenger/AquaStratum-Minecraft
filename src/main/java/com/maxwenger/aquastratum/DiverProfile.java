@@ -45,6 +45,10 @@ public class DiverProfile {
         return 0;
     }
 
+    public int getCeiling() {
+        return (int)computer.getCeling();
+    }
+
     private double getPPOG(double fog) {
         int depth = getDepth();
         double ppog = fog;

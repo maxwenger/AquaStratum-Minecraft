@@ -23,9 +23,10 @@ public class ZHL16A {
     }
 
     public double getCeling() {
-        double maxPPoG = getControllingCompartment().GetCurrentPPOG();
+        double maxPPoG = getControllingCompartment().getMaxToleratedPressure();
+        double maxAmbientPressure = maxPPoG / fn2;
 
-        return 0.0;
+        return maxAmbientPressure;
     }
 
     public ZHLTissueCompartment getControllingCompartment() {
