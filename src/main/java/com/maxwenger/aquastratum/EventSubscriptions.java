@@ -50,11 +50,11 @@ public class EventSubscriptions {
     public void onDebugOverlay(RenderGameOverlayEvent.Text event) {
         if (mc != null && diverProfile != null) {
             if (mc.gameSettings.showDebugInfo && diverProfile.isDiving()) {
-                int depth = diverProfile.getDepth();
+                double depth = diverProfile.getDepth();
                 double Pa = 1 + (depth / 10.0);
                 DecimalFormat floatF = new DecimalFormat("0.000");
                 DecimalFormat intF = new DecimalFormat("00");
-                event.getRight().add("Pa: " + Pa + " bar; " + "Depth: " + depth + "m");
+                event.getRight().add("Pa: " + floatF.format(Pa) + " bar; " + "Depth: " + floatF.format(depth) + "m");
                 event.getRight().add("Curve Deco Stress: " + floatF.format(diverProfile.getCurveStress()));
                 for(int i=1; i < 16; i += 2){
                     int j = i-1;

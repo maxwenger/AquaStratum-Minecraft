@@ -1,7 +1,10 @@
 package com.maxwenger.aquastratum;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.util.math.BlockPos;
 
 public class DiverProfile {
 
@@ -15,8 +18,8 @@ public class DiverProfile {
 
     public DiverProfile(Minecraft mc) {
         this.mc = mc;
-        gasMix = new GasMix("20/00");
-        continuousCurve = new ContinuousCurve();
+        gasMix = new GasMix("21/00");
+        continuousCurve = new ContinuousCurve(gasMix);
         zhl16A = new ZHL16A(gasMix.getO2Percent(), gfLow, gfHigh);
     }
 
@@ -26,31 +29,29 @@ public class DiverProfile {
 
     public void RecomputeTissues(double deltaTime) {
         zhl16A.RecomputeN2Compartments(getPPOG(gasMix.getN2Percent()), deltaTime);
-        continuousCurve.addElement(getDepth(), deltaTime, gasMix);
+        continuousCurve.update(getDepth(), deltaTime);
     }
 
     public double getPPO2() {
         return getPPOG(gasMix.getO2Percent());
     }
 
-    public int getAltitude() {
-        int seaLevel = 63;
-        int yCord = getPlayer().getPosition().getY();
-        return yCord - seaLevel;
-    }
-
-    public int getDepth() {
-
-        int alt = getAltitude();
-        if (alt < 0 && getPlayer().isInWater()) {
-            return getAltitude() * -1;
+    public double getDepth() {
+        double playerY = getPlayer().posY;
+        int cursorPos = (int)Math.floor(playerY);
+        int x = (int)Math.floor(getPlayer().posX);
+        int z = (int)Math.floor(getPlayer().posZ);
+        double depth = 0; //Start with a fractional offset
+        while(mc.world.getBlockState(new BlockPos(x, cursorPos, z)).getMaterial().isLiquid() && cursorPos < 255){
+            depth += 1;
+            cursorPos += 1;
         }
-
-        return 0;
+        depth += playerY % 1;
+        return depth;
     }
 
     private double getPPOG(double fog) {
-        int depth = getDepth();
+        double depth = getDepth();
         double ppog = fog;
 
         if (depth != 0) {
@@ -65,7 +66,7 @@ public class DiverProfile {
     }
 
     public double getCurveTP(double tissueIndex){
-        return continuousCurve.getCurve(tissueIndex);
+        return continuousCurve.getTissue(tissueIndex);
     }
 
     public double getCurveStress(){

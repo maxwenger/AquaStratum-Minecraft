@@ -24,6 +24,10 @@ public class GasMix {
         setMix(oxygenPercentage, heliumPercentage);
     }
 
+    public GasMix(GasMix mix){
+        setMix(mix.getO2Percent(), mix.getHePercent());
+    }
+
     public void setMix(double oxygenPercentage, double heliumPercentage) {
         if (oxygenPercentage + heliumPercentage > 1) {
             throw new IllegalArgumentException("Invalid mixture");
