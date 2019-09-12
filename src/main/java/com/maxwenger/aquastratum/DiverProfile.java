@@ -38,7 +38,7 @@ public class DiverProfile {
     }
 
     public int getCeiling() {
-        double ceiling = zhl16A.getPressureCeling() * 10;
+        double ceiling = (zhl16A.getPressureCeling() - 1.0) * 10;
 
         if (ceiling < 0) {
             ceiling = 0;
