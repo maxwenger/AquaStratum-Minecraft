@@ -36,6 +36,10 @@ public class DiverProfile {
         return getPPOG(gasMix.getO2Percent());
     }
 
+    public ZHL16A getZhl16A(){
+        return zhl16A;
+    }
+
     public double getDepth() {
         double playerY = getPlayer().posY;
         int cursorPos = (int)Math.floor(playerY);
