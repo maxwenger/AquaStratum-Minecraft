@@ -57,8 +57,8 @@ public class EventSubscriptions {
                 DecimalFormat floatF = new DecimalFormat("0.000");
                 DecimalFormat intF = new DecimalFormat("00");
                 event.getRight().add("Pa: " + floatF.format(Pa) + " bar; " + "Depth: " + floatF.format(depth) + "m");
-                event.getRight().add("Curve Deco Stress: " + floatF.format(diverProfile.getCurveStress()));
-                event.getLeft().add("Ceiling: " + diverProfile.getCeiling() + "m; P: " + floatF.format(diverProfile.getZhl16A().getPressureCeling()));
+                event.getRight().add("Curve Deco Stress: " + floatF.format(diverProfile.getCurveStress()) + "; Ceiling: " + floatF.format(diverProfile.getCurveCeiling()) + "m");
+                event.getLeft().add("Ceiling: " + floatF.format(diverProfile.getZHLCeiling()) + "m; P: " + floatF.format(diverProfile.getZhl16A().getPressureCeling()));
                 for(int i=1; i < 16; i += 2){
                     int j = i-1;
                     int k = i;

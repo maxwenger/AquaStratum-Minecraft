@@ -15,6 +15,8 @@ public abstract class DecoAlgorithm {
         setCurrentMix(startingMix);
     }
 
+    public DecoAlgorithm(DecoAlgorithm decoAlgorithm){ setCurrentMix(decoAlgorithm.currentMix);}
+
     protected void setCurrentMix(GasMix gasMix){
         currentMix = new GasMix(gasMix);
     }

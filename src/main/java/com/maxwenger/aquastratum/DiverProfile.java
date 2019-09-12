@@ -40,14 +40,24 @@ public class DiverProfile {
         return zhl16A;
     }
 
-    public int getCeiling() {
+    public double getZHLCeiling() {
         double ceiling = (zhl16A.getPressureCeling() - 1.0) * 10;
 
         if (ceiling < 0) {
             ceiling = 0;
         }
 
-        return (int)Math.ceil(ceiling);
+        return ceiling;
+    }
+
+    public double getCurveCeiling() {
+        double ceiling = (continuousCurve.getCeiling()- 1.0) * 10;
+
+        if (ceiling < 0) {
+            ceiling = 0;
+        }
+
+        return ceiling;
     }
 
     public double getDepth() {
@@ -77,16 +87,6 @@ public class DiverProfile {
 
     public double getZHLTP(int tissueIndex){
         return zhl16A.GetCompartments()[tissueIndex].GetCurrentPPOG();
-    }
-
-    public int getCeiling() {
-        double ceiling = zhl16A.getPressureCeling() * 10;
-
-        if (ceiling < 0) {
-            ceiling = 0;
-        }
-
-        return (int)Math.ceil(ceiling);
     }
 
     public double getCurveTP(double tissueIndex){

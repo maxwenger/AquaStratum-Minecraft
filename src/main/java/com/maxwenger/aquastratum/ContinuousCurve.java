@@ -6,9 +6,13 @@ import org.apache.commons.math3.analysis.integration.*;
 public class ContinuousCurve extends DecoAlgorithm {
     private ProfileElement[] profile;
 
+    private double testPressure; //Used for calculating the ceiling, really should not be a field but I can't come up with any better solution
+
     private static final double TOLERANCE = 0.01;
-    private static final int TISSUEMAX = 15;
-    private static final int TISSUEMIN = 0;
+    private static final int TISSUE_MAX = 15;
+    private static final int TISSUE_MIN = 0;
+    private static final double MAX_STRESS = 5; // This controls the conservativeness of the algo, lower is more conservative, 5 happens to be roughly zhl, by observation
+    private static final double CEILING_STEP = 0.01; // This controls the amount of sigfigs in the ceiling, warning, major performance penalty
 
     public ContinuousCurve(){
         super();
@@ -18,6 +22,11 @@ public class ContinuousCurve extends DecoAlgorithm {
     public ContinuousCurve(GasMix startingMix){
         super(startingMix);
         profile = new ProfileElement[0];
+    }
+
+    public ContinuousCurve(ContinuousCurve continuousCurve){
+        super(continuousCurve);
+        profile = continuousCurve.profile.clone();
     }
 
     private double halftimeN2(double x) {
@@ -48,19 +57,35 @@ public class ContinuousCurve extends DecoAlgorithm {
 
     public double decoStress(){
         TrapezoidIntegrator integrator = new TrapezoidIntegrator(TOLERANCE,TOLERANCE,TrapezoidIntegrator.DEFAULT_MIN_ITERATIONS_COUNT, TrapezoidIntegrator.TRAPEZOID_MAX_ITERATIONS_COUNT);
-        return integrator.integrate(Integer.MAX_VALUE, this::overPressure,TISSUEMIN,TISSUEMAX);
+        return integrator.integrate(Integer.MAX_VALUE, this::overPressure, TISSUE_MIN, TISSUE_MAX);
+    }
+
+    public double decoStress(double ambientPressure){
+        testPressure = ambientPressure;
+        TrapezoidIntegrator integrator = new TrapezoidIntegrator(TOLERANCE,TOLERANCE,TrapezoidIntegrator.DEFAULT_MIN_ITERATIONS_COUNT, TrapezoidIntegrator.TRAPEZOID_MAX_ITERATIONS_COUNT);
+        return integrator.integrate(Integer.MAX_VALUE, this::overPressureA, TISSUE_MIN, TISSUE_MAX);
     }
 
     private double overPressure(double x){
-        double tissueOverPressure = getTissue(x) - stressLine(x);
+        double ambientPressure = profile[profile.length-1].getAmbientPressure();
+        double tissueOverPressure = getTissue(x) - stressLine(x,ambientPressure);
         if(tissueOverPressure <= 0){
             tissueOverPressure = 0;
         }
         return tissueOverPressure;
     }
 
-    private double stressLine(double x){
-        return profile[profile.length-1].getAmbientPressure();
+    private double overPressureA(double x){
+        double ambientPressure = testPressure;
+        double tissueOverPressure = getTissue(x) - stressLine(x,ambientPressure);
+        if(tissueOverPressure <= 0){
+            tissueOverPressure = 0;
+        }
+        return tissueOverPressure;
+    }
+
+    private double stressLine(double x, double ambientPressure){
+        return ambientPressure;
     }
 
     @Override
@@ -87,6 +112,10 @@ public class ContinuousCurve extends DecoAlgorithm {
 
     @Override
     public double getCeiling() {
-        return 0;
+        double testAmbient = 1;
+        while(decoStress(testAmbient) > MAX_STRESS){
+            testAmbient += CEILING_STEP;
+        }
+        return testAmbient;
     }
 }
