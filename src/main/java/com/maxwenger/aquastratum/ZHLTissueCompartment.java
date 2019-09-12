@@ -12,7 +12,7 @@ public class ZHLTissueCompartment {
         this.HalfTime = halfTime;
         CurrentPPOG = initialPPOG;
 
-        a = 2.0 * Math.pow(halfTime, -1.0 / 3);
+        a = 2.0 * Math.pow(halfTime, -1 * (1.0 / 3.0));
         b = 1.005 - Math.pow(halfTime, -0.5);
     }
 

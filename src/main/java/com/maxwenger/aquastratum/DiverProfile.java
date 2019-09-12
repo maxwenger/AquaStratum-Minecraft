@@ -40,6 +40,16 @@ public class DiverProfile {
         return zhl16A;
     }
 
+    public int getCeiling() {
+        double ceiling = (zhl16A.getPressureCeling() - 1.0) * 10;
+
+        if (ceiling < 0) {
+            ceiling = 0;
+        }
+
+        return (int)Math.ceil(ceiling);
+    }
+
     public double getDepth() {
         double playerY = getPlayer().posY;
         int cursorPos = (int)Math.floor(playerY);
