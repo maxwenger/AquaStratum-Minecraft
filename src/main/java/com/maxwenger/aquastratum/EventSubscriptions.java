@@ -1,7 +1,9 @@
 package com.maxwenger.aquastratum;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -13,7 +15,7 @@ public class EventSubscriptions {
 
     private DiverProfile diverProfile;
     private Minecraft mc;
-    private Perdix perdix;
+    private PerdixGui perdixGui;
 
     public void setDiverProfile(DiverProfile diverProfile) {
         this.diverProfile = diverProfile;
@@ -23,8 +25,8 @@ public class EventSubscriptions {
         this.mc = mc;
     }
 
-    public void setPerdix(Perdix perdix) {
-        this.perdix = perdix;
+    public void setPerdixGui(PerdixGui perdixGui) {
+        this.perdixGui = perdixGui;
     }
 
     // 20 ticks per second, want it to run at 2hz
@@ -56,6 +58,7 @@ public class EventSubscriptions {
                 DecimalFormat intF = new DecimalFormat("00");
                 event.getRight().add("Pa: " + floatF.format(Pa) + " bar; " + "Depth: " + floatF.format(depth) + "m");
                 event.getRight().add("Curve Deco Stress: " + floatF.format(diverProfile.getCurveStress()));
+                event.getLeft().add("Ceiling: " + diverProfile.getCeiling() + "m; P: " + floatF.format(diverProfile.getZhl16A().getPressureCeling()));
                 for(int i=1; i < 16; i += 2){
                     int j = i-1;
                     int k = i;
@@ -67,9 +70,14 @@ public class EventSubscriptions {
     }
 
     @SubscribeEvent
+    public void registerItems(RegistryEvent.Register<Item> event){
+        event.getRegistry().registerAll();
+    }
+
+    @SubscribeEvent
     public void onKeyPress(InputEvent.KeyInputEvent event) {
         if (Keyboard.isKeyDown(Keyboard.KEY_C)) {
-            mc.displayGuiScreen(perdix);
+            mc.displayGuiScreen(perdixGui);
         }
     }
 }

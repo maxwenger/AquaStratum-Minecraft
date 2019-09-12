@@ -65,6 +65,16 @@ public class DiverProfile {
         return zhl16A.GetCompartments()[tissueIndex].GetCurrentPPOG();
     }
 
+    public int getCeiling() {
+        double ceiling = zhl16A.getPressureCeling() * 10;
+
+        if (ceiling < 0) {
+            ceiling = 0;
+        }
+
+        return (int)Math.ceil(ceiling);
+    }
+
     public double getCurveTP(double tissueIndex){
         return continuousCurve.getTissue(tissueIndex);
     }
