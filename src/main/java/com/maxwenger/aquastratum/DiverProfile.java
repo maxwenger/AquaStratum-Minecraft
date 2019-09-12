@@ -15,7 +15,7 @@ public class DiverProfile {
 
     public DiverProfile(Minecraft mc) {
         this.mc = mc;
-        gasMix = new GasMix("20/00");
+        gasMix = new GasMix("21/00");
         continuousCurve = new ContinuousCurve();
         zhl16A = new ZHL16A(gasMix.getO2Percent(), gfLow, gfHigh);
     }
@@ -31,6 +31,20 @@ public class DiverProfile {
 
     public double getPPO2() {
         return getPPOG(gasMix.getO2Percent());
+    }
+
+    public ZHL16A getZhl16A() {
+        return zhl16A;
+    }
+
+    public int getCeiling() {
+        double ceiling = zhl16A.getPressureCeling() * 10;
+
+        if (ceiling < 0) {
+            ceiling = 0;
+        }
+
+        return (int)Math.ceil(ceiling);
     }
 
     public int getAltitude() {

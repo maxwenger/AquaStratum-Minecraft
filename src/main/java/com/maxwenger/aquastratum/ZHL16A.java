@@ -23,17 +23,14 @@ public class ZHL16A {
         return n2Compartments;
     }
 
-    public double getCeling() {
-        double maxPPo2 = getControllingCompartment().GetCurrentPPOG();
-
-
-        return 0.0;
+    public double getPressureCeling() {
+        return getControllingCompartment().getPressureCeiling();
     }
 
     public ZHLTissueCompartment getControllingCompartment() {
         int controllingCompartment = 0;
         for (int i = 0; i < n2Compartments.length; i++) {
-            if (n2Compartments[i].GetCurrentPPOG() > n2Compartments[controllingCompartment].GetCurrentPPOG()) {
+            if (n2Compartments[i].getPressureCeiling() > n2Compartments[controllingCompartment].getPressureCeiling()) {
                 controllingCompartment = i;
             }
         }
